@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-bienvenida',
-  imports: [],
+  imports: [CommonModule, FormsModule, RouterLink],	
   templateUrl: './bienvenida.component.html',
-  styleUrl: './bienvenida.component.css'
+  styleUrls: ['./bienvenida.component.css']
 })
 export class BienvenidaComponent {
-
+  
 }
