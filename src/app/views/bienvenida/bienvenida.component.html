@@ -1,32 +1,17 @@
-<div class="landing-container">
-    <header>
-      <h1>Bienvenido a SmarXScan</h1>
-    </header>
-
-    <main>
-      <section class="prediction-section">
-        <h2>Predicción</h2>
-        <p>Sube una imagen de radiografía de tórax y nuestro sistema analizará si hay indicios de TBC. Simple, rápido y sin complicaciones.</p>
-
-        <button class="diagnosis-button">Iniciar diagnóstico</button>
-
-        <div class="upload-area">
-          <input type="file">
+<div class="bienvenida-container">
+    <div class="bienvenida-informacion">
+        <h1 class="bienvenida-title">Bienvenido a SmartXScan</h1>
+        <div class="prediccion">
+            <h2>Predicción</h2>
+            <p>Sube una imagen de radiografía de tórax y nuestro sistema analizará si hay indicios de TBC. Simple, rápido y sin complicaciones.</p>
+            <button routerLink="/prediccion" class="diagnosis-button">Iniciar diagnóstico</button>
         </div>
-      </section>
-
-      <hr class="divider">
-
-      <section class="analysis-section">
-        <h3>Análisis predictivo</h3>
-        <p>Diagnóstico temprano de tuberculosis pulmonar mediante inteligencia artificial.</p>
-      </section>
-    </main>
-
-    <nav class="navigation">
-      <a>Inicio</a>
-      <a>Predicción</a>
-      <a>Análisis</a>
-    </nav>
-
-  </div>
+        <div class="analisis">
+            <h2>Análisis predictivo</h2>
+            <p>Diagnóstico temprano de tuberculosis pulmonar mediante inteligencia artificial.</p>
+        </div>
+    </div>
+    <div class="bienvenida-imagen">
+        <img src="https://i.imgur.com/P3uRvIX.png" alt="Fondo" class="fondo">
+    </div>
+</div>
