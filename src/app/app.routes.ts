@@ -13,4 +13,10 @@ export const routes: Routes = [
         path: 'prediccion',
         component: PrediccionComponent,
     },
+    {
+        path: '', redirectTo: '/bienvenida', pathMatch: 'full'
+    },
+    {
+        path: '**', redirectTo: '/bienvenida'
+    }
 ];

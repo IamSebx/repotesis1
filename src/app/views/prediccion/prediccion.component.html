@@ -1,1 +1,24 @@
-<p>prediccion works!</p>
+<div class="contenedor">
+    <h2>Predicción</h2>
+    <p>Para realizar el análisis, sube una imagen clara de una radiografía de tórax.</p>
+  
+    <div class="preview-box" *ngIf="selectedFile">
+      <p class="titulo-previa">Vista Previa</p>
+  
+      <ng-container *ngIf="isImage(selectedFile.name); else pdfTemplate">
+        <img [src]="imagePreviewUrl" alt="Vista previa de la imagen" />
+      </ng-container>
+  
+      <ng-template #pdfTemplate>
+        <div class="pdf-preview">
+          <p><i class="fa fa-file-pdf-o"></i></p>
+        </div>
+      </ng-template>
+    </div>
+  
+    <input type="file" accept="image/*,.pdf" />
+  
+    <button class="btn-analizar">Analizar imagen</button>
+  </div>
+  
+

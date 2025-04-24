@@ -1,78 +1,41 @@
-/* Contenedor principal */
-.bienvenida-container {
-    display: flex;
-    min-height: calc(100vh - 120px); /* Ajusta según altura de header/footer */
-    background-color: #ffffff;
-  }
-  
-  /* Sección de información (izquierda) */
-  .bienvenida-informacion {
-    flex: 1;
-    padding: 32px 64px;
-    max-width: 65%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  
-  .bienvenida-title {
-    font-size: 40px;
-    color: #2c3e50;
-    margin-bottom: 32px;
-    font-weight: 600;
-    text-align: left;
-  }
-  
-  /* Secciones de contenido */
-  .prediccion, .analisis {
-    margin-bottom: 48px;
-  }
-  
-  .prediccion h2, .analisis h2 {
-    font-size: 28px;
-    color: #2c3e50;
-    margin-bottom: 16px;
-    font-weight: 500;
-  }
-  
-  .prediccion p, .analisis p {
-    font-size: 18px;
-    line-height: 1.6;
-    color: #34495e;
-    margin-bottom: 24px;
-  }
-  
-  /* Botón de diagnóstico */
-  .diagnosis-button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 12px 30px;
-    font-size: 18px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    font-weight: 500;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  }
-  
-  .diagnosis-button:hover {
-    background-color: #45a049;
-  }
-  
-  /* Sección de imagen (derecha) */
-  .bienvenida-imagen {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 32px;
-  }
-  
-  .bienvenida-imagen img {
-    max-width: 100%;
-    max-height: 80vh;
-    object-fit: contain;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  }
+
+
+.principal {
+  flex: 1;
+  padding: 40px;
+  text-align: center;
+  border: #000000 solid 1px;
+  border-radius: 20px;
+  height: 550px;
+  margin: 20px;
+}
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 30px;
+}
+
+.card {
+  background-color: #e0e0e0;
+  border-radius: 20px;
+  padding: 20px;
+  width: 400px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin: 60px;
+}
+
+button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background-color: #4a90e2;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #3a7bd5;
+}
