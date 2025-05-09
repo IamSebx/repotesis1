@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './prediccion.component.css'
 })
 export class PrediccionComponent {
-  selectedFile: File | null = null;
+ selectedFile: File | null = null;
   imagePreviewUrl: string | null = null;
 
   onFileSelected(event: any): void {
@@ -34,5 +34,6 @@ export class PrediccionComponent {
 
   analizar(): void {
     console.log('Archivo enviado para análisis:', this.selectedFile);
+    // Aquí puedes llamar al backend o mostrar un spinner
   }
 }
