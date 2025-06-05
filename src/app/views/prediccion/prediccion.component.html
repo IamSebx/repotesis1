@@ -1,22 +1,69 @@
 <div class="contenedor">
-  <h2>Predicción</h2>
-  <p>Para realizar el análisis, sube una imagen clara de una radiografía de tórax.</p>
-
-  <div class="preview-box" *ngIf="selectedFile">
-    <p class="titulo-previa">Vista Previa</p>
-
-    <ng-container *ngIf="isImage(selectedFile.name); else pdfTemplate">
-      <img [src]="imagePreviewUrl" alt="Vista previa de la imagen" />
-    </ng-container>
-
-    <ng-template #pdfTemplate>
-      <div class="pdf-preview">
-        <p><i class="fa fa-file-pdf-o"></i> {{ selectedFile.name }}</p>
-      </div>
-    </ng-template>
+  <h2>Análisis de Radiografías para Tuberculosis</h2>
+  
+  <!-- Estado del backend -->
+  <div class="backend-status" [class.connected]="isBackendConnected">
+    <i class="status-icon" [class.connected]="isBackendConnected"></i>
+    {{ backendStatus }}
   </div>
 
-  <input type="file" (change)="onFileSelected($event)" accept="image/*,.pdf" />
+  <div *ngIf="!isBackendConnected" class="alert warning">
+    No se puede conectar con el servidor de análisis. Por favor, verifica que el backend esté en ejecución.
+  </div>
 
-  <button class="btn-analizar" [disabled]="!selectedFile" (click)="analizar()">Analizar imagen</button>
+  <div *ngIf="isBackendConnected">
+    <p>Para realizar el análisis, sube una imagen clara de una radiografía de tórax (JPEG, PNG).</p>
+
+    <!-- Mensaje de error -->
+    <div class="alert error" *ngIf="errorMessage">
+      {{ errorMessage }}
+    </div>
+
+    <!-- Vista previa -->
+    <div class="preview-box" *ngIf="imagePreviewUrl">
+      <p class="titulo-previa">Vista Previa</p>
+      <img [src]="imagePreviewUrl" alt="Vista previa de la imagen" />
+      <p class="file-name">{{ selectedFile?.name }}</p>
+    </div>
+
+    <!-- Selección de archivo -->
+    <div class="file-upload">
+      <input type="file" id="fileInput" (change)="onFileSelected($event)" 
+             accept="image/jpeg, image/png" [disabled]="!isBackendConnected" />
+      <label for="fileInput" class="upload-btn">
+        <i class="fa fa-cloud-upload"></i> Seleccionar Imagen
+      </label>
+    </div>
+
+    <!-- Botón de análisis -->
+    <button class="btn-analizar" 
+            [disabled]="!selectedFile || isLoading || !isBackendConnected" 
+            (click)="analizar()">
+      <span *ngIf="!isLoading">Analizar imagen</span>
+      <span *ngIf="isLoading">
+        <i class="fa fa-spinner fa-spin"></i> Procesando...
+      </span>
+    </button>
+
+    <!-- Resultados -->
+    <div *ngIf="result" class="result-container">
+      <h3>Resultados del Análisis</h3>
+      
+      <div class="diagnosis" [class]="getDiagnosisClass(result.diagnostico)">
+        <h4>Diagnóstico:</h4>
+        <p>{{ getDiagnosisText(result.diagnostico) }}</p>
+        <p *ngIf="result.confianza" class="confidence">
+          Confianza: {{ result.confianza | number:'1.1-1' }}%
+        </p>
+      </div>
+      
+      <div *ngIf="result.es_radiografia" class="quality-report">
+        <h4>Calidad Técnica:</h4>
+        <p><strong>Penetración:</strong> {{ result.hallazgos_tecnicos.diagnostico_tecnico }}</p>
+        <p><strong>Contraste:</strong> {{ result.hallazgos_tecnicos.contraste | number:'1.1-1' }}</p>
+        <p><strong>Posible causa:</strong> {{ result.hallazgos_tecnicos.posible_causa }}</p>
+        <p><strong>Recomendación:</strong> {{ result.recomendacion_clinica }}</p>
+      </div>
+    </div>
+  </div>
 </div>
