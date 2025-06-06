@@ -1,7 +1,6 @@
 <div class="contenedor">
   <h2>Análisis de Radiografías para Tuberculosis</h2>
   
-  <!-- Estado del backend -->
   <div class="backend-status" [class.connected]="isBackendConnected">
     <i class="status-icon" [class.connected]="isBackendConnected"></i>
     {{ backendStatus }}
@@ -14,28 +13,24 @@
   <div *ngIf="isBackendConnected">
     <p>Para realizar el análisis, sube una imagen clara de una radiografía de tórax (JPEG, PNG).</p>
 
-    <!-- Mensaje de error -->
     <div class="alert error" *ngIf="errorMessage">
       {{ errorMessage }}
     </div>
 
-    <!-- Vista previa -->
     <div class="preview-box" *ngIf="imagePreviewUrl">
       <p class="titulo-previa">Vista Previa</p>
       <img [src]="imagePreviewUrl" alt="Vista previa de la imagen" />
       <p class="file-name">{{ selectedFile?.name }}</p>
     </div>
 
-    <!-- Selección de archivo -->
     <div class="file-upload">
       <input type="file" id="fileInput" (change)="onFileSelected($event)" 
              accept="image/jpeg, image/png" [disabled]="!isBackendConnected" />
       <label for="fileInput" class="upload-btn">
-        <i class="fa fa-cloud-upload"></i> Seleccionar Imagen
+        <i class="fa fa-cloud-upload"></i>
       </label>
     </div>
 
-    <!-- Botón de análisis -->
     <button class="btn-analizar" 
             [disabled]="!selectedFile || isLoading || !isBackendConnected" 
             (click)="analizar()">
@@ -45,7 +40,6 @@
       </span>
     </button>
 
-    <!-- Resultados -->
     <div *ngIf="result" class="result-container">
       <h3>Resultados del Análisis</h3>
       

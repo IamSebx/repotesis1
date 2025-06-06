@@ -2,30 +2,32 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError, of, TimeoutError } from 'rxjs';
 import { catchError, timeout, retry, switchMap } from 'rxjs/operators';
+import { environment } from '../environments/environment'; 
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  private apiUrls = [
-    'http://localhost:8000',
-    'http://127.0.0.1:8000'
-  ];
-  private currentApiUrl = this.apiUrls[0];
-  private readonly API_TIMEOUT = 30000; // 30 segundos
+  private apiUrls = environment.apiUrls;
+  private currentApiUrl = environment.defaultApiUrl;
+  private requestTimeout = environment.apiTimeout;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    console.log('Configuración API:', {
+      apiUrls: this.apiUrls,
+      currentUrl: this.currentApiUrl,
+      timeout: this.requestTimeout
+    });
+  }
 
   analyzeImage(file: File): Observable<any> {
     const formData = new FormData();
     formData.append('file', file);
 
     return this.http.post(`${this.currentApiUrl}/upload-image/`, formData).pipe(
-      timeout(this.API_TIMEOUT),
       catchError((error: HttpErrorResponse) => {
-        return this.handleApiError(error, () => 
-          this.http.post(`${this.currentApiUrl}/upload-image/`, formData)
-        );
+        this.rotateApiUrl();
+        return this.handleApiError(error, () => this.http.post(`${this.currentApiUrl}/upload-image/`, formData));
       })
     );
   }
