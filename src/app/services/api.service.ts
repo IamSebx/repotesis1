@@ -8,8 +8,10 @@ import { catchError, timeout, retry, switchMap } from 'rxjs/operators';
 })
 export class ApiService {
   private apiUrls = [
-    'http://localhost:8000',
-    'http://127.0.0.1:8000'
+    'http://54.198.254.35',
+    'http://ec2-54-198-254-35.compute-1.amazonaws.com'
+    // 'http://localhost:8000',
+    // 'http://127.0.0.1:8000'
   ];
   private currentApiUrl = this.apiUrls[0];
   private readonly API_TIMEOUT = 30000; // 30 segundos
@@ -23,7 +25,7 @@ export class ApiService {
     return this.http.post(`${this.currentApiUrl}/upload-image/`, formData).pipe(
       timeout(this.API_TIMEOUT),
       catchError((error: HttpErrorResponse) => {
-        return this.handleApiError(error, () => 
+        return this.handleApiError(error, () =>
           this.http.post(`${this.currentApiUrl}/upload-image/`, formData)
         );
       })
@@ -35,7 +37,7 @@ export class ApiService {
       timeout(5000),
       retry(2),
       catchError((error: HttpErrorResponse) => {
-        return this.handleApiError(error, () => 
+        return this.handleApiError(error, () =>
           this.http.get(`${this.currentApiUrl}/health-check`)
         );
       })
