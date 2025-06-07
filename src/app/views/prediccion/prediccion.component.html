@@ -1,62 +1,80 @@
 <div class="contenedor">
-  <h2>Análisis de Radiografías para Tuberculosis</h2>
+  <h2>Predicción</h2>
   
-  <div class="backend-status" [class.connected]="isBackendConnected">
-    <i class="status-icon" [class.connected]="isBackendConnected"></i>
-    {{ backendStatus }}
+  <!-- Estado del backend -->
+  <div class="backend-status" [class.connected]="backendStatus.includes('Conectado')">
+    Estado del backend: {{ backendStatus }}
   </div>
 
-  <div *ngIf="!isBackendConnected" class="alert warning">
-    No se puede conectar con el servidor de análisis. Por favor, verifica que el backend esté en ejecución.
+  <p>Para realizar el análisis, sube una imagen clara de una radiografía de tórax (JPEG, PNG).</p>
+
+  <!-- Mensaje de error -->
+  <div class="error-message" *ngIf="errorMessage">
+    {{ errorMessage }}
   </div>
 
-  <div *ngIf="isBackendConnected">
-    <p>Para realizar el análisis, sube una imagen clara de una radiografía de tórax (JPEG, PNG).</p>
+  <!-- Vista previa -->
+  <div class="preview-box" *ngIf="selectedFile && isImage(selectedFile.type)">
+    <p class="titulo-previa">Vista Previa</p>
+    <img [src]="imagePreviewUrl" alt="Vista previa de la imagen" />
+    <p class="file-name">{{ selectedFile?.name }}</p>
+  </div>
 
-    <div class="alert error" *ngIf="errorMessage">
-      {{ errorMessage }}
+  <!-- Selección de archivo -->
+  <div class="file-upload">
+    <input type="file" id="fileInput" (change)="onFileSelected($event)" accept="image/jpeg, image/png" />
+    <label for="fileInput" class="upload-btn">
+      <i class="fa fa-cloud-upload"></i>
+    </label>
+  </div>
+
+  <!-- Botón de análisis -->
+  <button class="btn-analizar" [disabled]="!selectedFile || isLoading" (click)="analizar()">
+    <span *ngIf="!isLoading">Analizar imagen</span>
+    <span *ngIf="isLoading">
+      <i class="fa fa-spinner fa-spin"></i> Procesando...
+    </span>
+  </button>
+
+  <div *ngIf="result" class="result-container">
+    <h3>Resultados del Análisis</h3>
+    <br>
+    <div *ngIf="!result.es_radiografia" class="diagnosis diagnosis-info">
+      <h4>Resultado:</h4>
+      <p>{{ result.detalle }}</p>
+      <p class="confidence">Confianza: {{ result.confianza }}%</p>
     </div>
-
-    <div class="preview-box" *ngIf="imagePreviewUrl">
-      <p class="titulo-previa">Vista Previa</p>
-      <img [src]="imagePreviewUrl" alt="Vista previa de la imagen" />
-      <p class="file-name">{{ selectedFile?.name }}</p>
-    </div>
-
-    <div class="file-upload">
-      <input type="file" id="fileInput" (change)="onFileSelected($event)" 
-             accept="image/jpeg, image/png" [disabled]="!isBackendConnected" />
-      <label for="fileInput" class="upload-btn">
-        <i class="fa fa-cloud-upload"></i>
-      </label>
-    </div>
-
-    <button class="btn-analizar" 
-            [disabled]="!selectedFile || isLoading || !isBackendConnected" 
-            (click)="analizar()">
-      <span *ngIf="!isLoading">Analizar imagen</span>
-      <span *ngIf="isLoading">
-        <i class="fa fa-spinner fa-spin"></i> Procesando...
-      </span>
-    </button>
-
-    <div *ngIf="result" class="result-container">
-      <h3>Resultados del Análisis</h3>
-      
-      <div class="diagnosis" [class]="getDiagnosisClass(result.diagnostico)">
-        <h4>Diagnóstico:</h4>
-        <p>{{ getDiagnosisText(result.diagnostico) }}</p>
-        <p *ngIf="result.confianza" class="confidence">
-          Confianza: {{ result.confianza | number:'1.1-1' }}%
+    
+    <div *ngIf="result.es_radiografia">
+      <div class="diagnosis" [class]="getDiagnosisColor(result.diagnostico)">
+        <h4>Diagnóstico Clínico:</h4>
+        <p>{{ formatDiagnosis(result.diagnostico) }}</p>
+        <p *ngIf="result.probabilidad_tb" class="probability">
+          Probabilidad de TB: {{ result.probabilidad_tb }}%
         </p>
+        <p class="confidence">Confianza: {{ result.confianza }}%</p>
       </div>
       
-      <div *ngIf="result.es_radiografia" class="quality-report">
+      <div class="quality-report">
         <h4>Calidad Técnica:</h4>
-        <p><strong>Penetración:</strong> {{ result.hallazgos_tecnicos.diagnostico_tecnico }}</p>
-        <p><strong>Contraste:</strong> {{ result.hallazgos_tecnicos.contraste | number:'1.1-1' }}</p>
-        <p><strong>Posible causa:</strong> {{ result.hallazgos_tecnicos.posible_causa }}</p>
-        <p><strong>Recomendación:</strong> {{ result.recomendacion_clinica }}</p>
+        <div class="quality-section">
+          <p><strong>Diagnóstico Técnico:</strong> {{ result.hallazgos_tecnicos.diagnostico_tecnico }}</p>
+          <p><strong>Intensidad Media:</strong> {{ result.hallazgos_tecnicos.intensidad_media | number:'1.1-1' }}</p>
+          <p><strong>Contraste:</strong> {{ result.hallazgos_tecnicos.contraste | number:'1.1-1' }}</p>
+          <p><strong>Rango Dinámico:</strong> 
+            Oscuros: {{ result.hallazgos_tecnicos.rango_dinamico.oscuros | number:'1.1-1' }}, 
+            Claros: {{ result.hallazgos_tecnicos.rango_dinamico.claros | number:'1.1-1' }}</p>
+        </div>
+        
+        <div class="quality-details">
+          <p><strong>Posible Causa:</strong> {{ result.hallazgos_tecnicos.posible_causa }}</p>
+          <p><strong>Consecuencia:</strong> {{ result.hallazgos_tecnicos.consecuencia }}</p>
+        </div>
+      </div>
+
+      <div *ngIf="result.recomendacion_clinica" class="recommendation">
+        <h4>Recomendación Clínica:</h4>
+        <p>{{ result.recomendacion_clinica }}</p>
       </div>
     </div>
   </div>

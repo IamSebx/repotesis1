@@ -15,8 +15,8 @@ export class PrediccionComponent implements OnInit {
   isLoading: boolean = false;
   result: any = null;
   errorMessage: string | null = null;
-  backendStatus: string = 'Verificando conexión...';
-  isBackendConnected: boolean = false;
+  backendStatus: string = 'Verificando...';
+  tiempoProcesamiento: number | null = null;
 
   constructor(private apiService: ApiService) {}
 
@@ -27,12 +27,10 @@ export class PrediccionComponent implements OnInit {
   checkBackendConnection(): void {
     this.apiService.checkBackendHealth().subscribe({
       next: (response) => {
-        this.backendStatus = 'Backend conectado';
-        this.isBackendConnected = true;
+        this.backendStatus = `Conectado (${response.status})`;
       },
       error: (error) => {
-        this.backendStatus = 'Backend no disponible';
-        this.isBackendConnected = false;
+        this.backendStatus = `Error de conexión: ${error}`;
       }
     });
   }
@@ -41,61 +39,73 @@ export class PrediccionComponent implements OnInit {
     const file = event.target.files[0];
     this.resetAnalysis();
     
-    if (file && this.isValidImage(file)) {
+    if (file && this.isImage(file.type)) {
       this.selectedFile = file;
-      this.previewImage(file);
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.imagePreviewUrl = e.target.result;
+      };
+      reader.readAsDataURL(file);
     } else if (file) {
       this.errorMessage = 'Solo se aceptan imágenes (JPEG, PNG, JPG)';
       this.selectedFile = null;
     }
   }
 
-  private isValidImage(file: File): boolean {
-    return file.type.match(/image\/(jpeg|png|jpg)/) !== null;
-  }
-
-  private previewImage(file: File): void {
-    const reader = new FileReader();
-    reader.onload = (e: any) => {
-      this.imagePreviewUrl = e.target.result;
-    };
-    reader.readAsDataURL(file);
+  isImage(fileType: string): boolean {
+    return fileType.match(/image\/(png|jpeg|jpg)/) !== null;
   }
 
   analizar(): void {
-    if (!this.selectedFile || !this.isBackendConnected) return;
+    if (!this.selectedFile) return;
 
     this.isLoading = true;
     this.errorMessage = null;
+    this.tiempoProcesamiento = null;
     
     this.apiService.analyzeImage(this.selectedFile).subscribe({
       next: (response) => {
         this.result = response;
+        this.tiempoProcesamiento = response.tiempo_de_espera || null;
         this.isLoading = false;
       },
       error: (error) => {
-        this.errorMessage = error;
+        this.errorMessage = this.handleApiError(error);
         this.isLoading = false;
       }
     });
   }
 
+  private handleApiError(error: any): string {
+    if (error.error?.error?.includes('No se pudo descargar el modelo')) {
+      return 'Error al cargar los modelos de análisis. Por favor intente más tarde.';
+    }
+    return error.error?.detail || 'Error al procesar la imagen';
+  }
+
   resetAnalysis(): void {
     this.result = null;
     this.errorMessage = null;
+    this.tiempoProcesamiento = null;
   }
 
-  getDiagnosisText(diagnosis: string): string {
-    const diagnosisMap: Record<string, string> = {
+  formatDiagnosis(diagnosis: string): string {
+    const diagnoses: {[key: string]: string} = {
       'Tuberculosis': 'Tuberculosis Detectada',
       'Normal': 'Normal (No se detectó tuberculosis)',
-      'BajaCalidad': 'Imagen de Baja Calidad',
+      'BajaCalidad': 'Baja Calidad - Precaución en el diagnóstico',
       'NoRadiografia': 'No es una radiografía'
     };
-    return diagnosisMap[diagnosis] || diagnosis;
+    return diagnoses[diagnosis] || diagnosis;
   }
 
-  getDiagnosisClass(diagnosis: string): string {
-    return diagnosis.toLowerCase();
+  getDiagnosisColor(diagnostico: string): string {
+    switch(diagnostico) {
+      case 'Tuberculosis': return 'diagnosis-danger';
+      case 'Normal': return 'diagnosis-success';
+      case 'BajaCalidad': return 'diagnosis-warning';
+      case 'NoRadiografia': return 'diagnosis-info';
+      default: return '';
+    }
   }
 }
