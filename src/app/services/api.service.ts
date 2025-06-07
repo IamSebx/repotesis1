@@ -8,8 +8,7 @@ import { catchError, timeout, retry, switchMap } from 'rxjs/operators';
 })
 export class ApiService {
   private apiUrls = [
-    'http://54.198.254.35',
-    'http://ec2-54-198-254-35.compute-1.amazonaws.com'
+    'https://detector-tbc-api.strategyec.com',
     // 'http://localhost:8000',
     // 'http://127.0.0.1:8000'
   ];
