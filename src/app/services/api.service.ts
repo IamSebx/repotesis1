@@ -8,8 +8,9 @@ import { catchError, timeout, retry, switchMap } from 'rxjs/operators';
 })
 export class ApiService {
   private apiUrls = [
-    'http://localhost:8000',
-    'http://127.0.0.1:8000'
+    'https://detector-tbc-api.strategyec.com',
+    // 'http://localhost:8000',
+    // 'http://127.0.0.1:8000'
   ];
   private currentApiUrl = this.apiUrls[0];
   private readonly API_TIMEOUT = 30000; // 30 segundos
