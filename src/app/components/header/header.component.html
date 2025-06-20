@@ -1,7 +1,10 @@
-<header class="header-container">
-    <div class="logo"><a class="logo" routerLink="/bienvenida">SmartXScan</a></div>
-    <nav class="navigation">
-      <a routerLink="/bienvenida" routerLinkActive="active">Inicio</a>
-      <a routerLink="/prediccion" routerLinkActive="active">Diagnóstico</a>
-    </nav>
-  </header>
+<header class="header" [ngClass]="{'scrolled': isScrolled}">
+  <div class="header-container">
+    <div class="logo">
+      <a routerLink="/">SmartXScan</a>
+    </div>
+    <div class="cta-header">
+      <a routerLink="/diagnostico" class="btn btn-primary">Realizar diagnóstico</a>
+    </div>
+  </div>
+</header>
