@@ -1,80 +1,159 @@
 <div class="contenedor">
-  <h2>Predicción</h2>
+  <!-- Header Section -->
+  <div class="header-section">
+    <h2 class="main-title">Análisis de Radiografía</h2>
+    <p class="subtitle">Suba una radiografía de tórax para detectar tuberculosis</p>
+  </div>
   
-  <!-- Estado del backend -->
-  <div class="backend-status" [class.connected]="backendStatus.includes('Conectado')">
-    Estado del backend: {{ backendStatus }}
+  <!-- Status Section -->
+  <div class="status-section">
+    <div class="backend-status" [class.connected]="backendStatus.includes('Conectado')">
+      <span class="status-icon">🔗</span>
+      <span class="status-text">{{ backendStatus }}</span>
+    </div>
   </div>
 
-  <p>Para realizar el análisis, sube una imagen clara de una radiografía de tórax (JPEG, PNG).</p>
+  <!-- Upload Section -->
+  <div class="upload-section">
+    <div class="upload-area"
+         *ngIf="!selectedFile"
+         (click)="fileInput.click()"
+         (dragover)="$event.preventDefault()"
+         (drop)="onDrop($event)"
+         tabindex="0"
+         role="button"
+         aria-label="Subir imagen">
+      <div class="upload-icon">📷</div>
+      <h3>Seleccione o arrastre una imagen</h3>
+      <p>Formatos aceptados: JPEG, PNG</p>
+      <div class="file-upload">
+        <input #fileInput type="file" id="fileInput" (change)="onFileSelected($event)" accept="image/jpeg, image/png" style="display:none;" />
+      </div>
+    </div>
 
-  <!-- Mensaje de error -->
-  <div class="error-message" *ngIf="errorMessage">
-    {{ errorMessage }}
+    <!-- Preview Section -->
+    <div class="preview-section" *ngIf="selectedFile && isImage(selectedFile.type)">
+      <div class="preview-box">
+        <h4 class="preview-title">Vista Previa</h4>
+        <div class="image-container">
+          <img [src]="imagePreviewUrl" alt="Vista previa de la imagen" />
+        </div>
+        <p class="file-name">{{ selectedFile.name }}</p>
+      </div>
+    </div>
+
+    <!-- Error Message -->
+    <div class="error-message" *ngIf="errorMessage">
+      <span class="error-icon">⚠️</span>
+      <span>{{ errorMessage }}</span>
+    </div>
+
+    <!-- Analysis Button -->
+    <button class="btn-analizar" [disabled]="!selectedFile || isLoading" (click)="analizar()">
+      <span *ngIf="!isLoading" class="btn-text">
+        <span class="btn-icon">🔍</span>
+        Analizar imagen
+      </span>
+      <span *ngIf="isLoading" class="btn-loading">
+        <span class="spinner"></span>
+        Procesando...
+      </span>
+    </button>
   </div>
 
-  <!-- Vista previa -->
-  <div class="preview-box" *ngIf="selectedFile && isImage(selectedFile.type)">
-    <p class="titulo-previa">Vista Previa</p>
-    <img [src]="imagePreviewUrl" alt="Vista previa de la imagen" />
-    <p class="file-name">{{ selectedFile?.name }}</p>
-  </div>
-
-  <!-- Selección de archivo -->
-  <div class="file-upload">
-    <input type="file" id="fileInput" (change)="onFileSelected($event)" accept="image/jpeg, image/png" />
-    <label for="fileInput" class="upload-btn">
-      <i class="fa fa-cloud-upload"></i>
-    </label>
-  </div>
-
-  <!-- Botón de análisis -->
-  <button class="btn-analizar" [disabled]="!selectedFile || isLoading" (click)="analizar()">
-    <span *ngIf="!isLoading">Analizar imagen</span>
-    <span *ngIf="isLoading">
-      <i class="fa fa-spinner fa-spin"></i> Procesando...
-    </span>
-  </button>
-
-  <div *ngIf="result" class="result-container">
-    <h3>Resultados del Análisis</h3>
-    <br>
-    <div *ngIf="!result.es_radiografia" class="diagnosis diagnosis-info">
-      <h4>Resultado:</h4>
-      <p>{{ result.detalle }}</p>
-      <p class="confidence">Confianza: {{ result.confianza }}%</p>
+  <!-- Results Section -->
+  <div *ngIf="result" class="results-section">
+    <h3 class="results-title">Resultados del Análisis</h3>
+    
+    <!-- Non-radiograph result -->
+    <div *ngIf="!result.es_radiografia" class="result-card diagnosis-info">
+      <div class="card-header">
+        <span class="card-icon">📋</span>
+        <h4>Resultado</h4>
+      </div>
+      <div class="card-content">
+        <p>{{ result.detalle }}</p>
+        <div class="confidence-badge">
+          <span class="confidence-label">Confianza:</span>
+          <span class="confidence-value">{{ result.confianza }}%</span>
+        </div>
+      </div>
     </div>
     
-    <div *ngIf="result.es_radiografia">
-      <div class="diagnosis" [class]="getDiagnosisColor(result.diagnostico)">
-        <h4>Diagnóstico Clínico:</h4>
-        <p>{{ formatDiagnosis(result.diagnostico) }}</p>
-        <p *ngIf="result.probabilidad_tb" class="probability">
-          Probabilidad de TB: {{ result.probabilidad_tb }}%
-        </p>
-        <p class="confidence">Confianza: {{ result.confianza }}%</p>
+    <!-- Radiograph results -->
+    <div *ngIf="result.es_radiografia" class="radiograph-results">
+      <!-- Clinical Diagnosis -->
+      <div class="result-card" [class]="getDiagnosisColor(result.diagnostico)">
+        <div class="card-header">
+          <span class="card-icon">🏥</span>
+          <h4>Diagnóstico Clínico</h4>
+        </div>
+        <div class="card-content">
+          <p class="diagnosis-text">{{ formatDiagnosis(result.diagnostico) }}</p>
+          <div class="metrics-row">
+            <div *ngIf="result.probabilidad_tb" class="metric-item">
+              <span class="metric-label">Probabilidad de TB:</span>
+              <span class="metric-value">{{ result.probabilidad_tb }}%</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-label">Confianza:</span>
+              <span class="metric-value">{{ result.confianza }}%</span>
+            </div>
+          </div>
+        </div>
       </div>
       
-      <div class="quality-report">
-        <h4>Calidad Técnica:</h4>
-        <div class="quality-section">
-          <p><strong>Diagnóstico Técnico:</strong> {{ result.hallazgos_tecnicos.diagnostico_tecnico }}</p>
-          <p><strong>Intensidad Media:</strong> {{ result.hallazgos_tecnicos.intensidad_media | number:'1.1-1' }}</p>
-          <p><strong>Contraste:</strong> {{ result.hallazgos_tecnicos.contraste | number:'1.1-1' }}</p>
-          <p><strong>Rango Dinámico:</strong> 
-            Oscuros: {{ result.hallazgos_tecnicos.rango_dinamico.oscuros | number:'1.1-1' }}, 
-            Claros: {{ result.hallazgos_tecnicos.rango_dinamico.claros | number:'1.1-1' }}</p>
+      <!-- Technical Quality -->
+      <div class="result-card quality-card">
+        <div class="card-header">
+          <span class="card-icon">⚙️</span>
+          <h4>Calidad Técnica</h4>
         </div>
-        
-        <div class="quality-details">
-          <p><strong>Posible Causa:</strong> {{ result.hallazgos_tecnicos.posible_causa }}</p>
-          <p><strong>Consecuencia:</strong> {{ result.hallazgos_tecnicos.consecuencia }}</p>
+        <div class="card-content">
+          <div class="quality-grid">
+            <div class="quality-item">
+              <span class="quality-label">Diagnóstico Técnico:</span>
+              <span class="quality-value">{{ result.hallazgos_tecnicos.diagnostico_tecnico }}</span>
+            </div>
+            <div class="quality-item">
+              <span class="quality-label">Intensidad Media:</span>
+              <span class="quality-value">{{ result.hallazgos_tecnicos.intensidad_media | number:'1.1-1' }}</span>
+            </div>
+            <div class="quality-item">
+              <span class="quality-label">Contraste:</span>
+              <span class="quality-value">{{ result.hallazgos_tecnicos.contraste | number:'1.1-1' }}</span>
+            </div>
+            <div class="quality-item">
+              <span class="quality-label">Rango Dinámico:</span>
+              <div class="range-values">
+                <span>Oscuros: {{ result.hallazgos_tecnicos.rango_dinamico.oscuros | number:'1.1-1' }}</span>
+                <span>Claros: {{ result.hallazgos_tecnicos.rango_dinamico.claros | number:'1.1-1' }}</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="quality-details">
+            <div class="detail-item">
+              <span class="detail-label">Posible Causa:</span>
+              <span class="detail-value">{{ result.hallazgos_tecnicos.posible_causa }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Consecuencia:</span>
+              <span class="detail-value">{{ result.hallazgos_tecnicos.consecuencia }}</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div *ngIf="result.recomendacion_clinica" class="recommendation">
-        <h4>Recomendación Clínica:</h4>
-        <p>{{ result.recomendacion_clinica }}</p>
+      <!-- Clinical Recommendation -->
+      <div *ngIf="result.recomendacion_clinica" class="result-card recommendation-card">
+        <div class="card-header">
+          <span class="card-icon">💡</span>
+          <h4>Recomendación Clínica</h4>
+        </div>
+        <div class="card-content">
+          <p>{{ result.recomendacion_clinica }}</p>
+        </div>
       </div>
     </div>
   </div>

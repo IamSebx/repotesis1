@@ -52,6 +52,25 @@ export class PrediccionComponent implements OnInit {
     }
   }
 
+  onDrop(event: DragEvent): void {
+    event.preventDefault();
+    this.resetAnalysis();
+    if (event.dataTransfer && event.dataTransfer.files.length > 0) {
+      const file = event.dataTransfer.files[0];
+      if (file && this.isImage(file.type)) {
+        this.selectedFile = file;
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+          this.imagePreviewUrl = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      } else {
+        this.errorMessage = 'Solo se aceptan imágenes (JPEG, PNG, JPG)';
+        this.selectedFile = null;
+      }
+    }
+  }
+
   isImage(fileType: string): boolean {
     return fileType.match(/image\/(png|jpeg|jpg)/) !== null;
   }

@@ -6,17 +6,14 @@ import { PrediccionComponent } from './views/prediccion/prediccion.component';
 
 export const routes: Routes = [
     {
-        path: 'bienvenida',
+        path: '',
         component: BienvenidaComponent,
     },
     {   
-        path: 'prediccion',
+        path: 'diagnostico',
         component: PrediccionComponent,
     },
     {
-        path: '', redirectTo: '/bienvenida', pathMatch: 'full'
-    },
-    {
-        path: '**', redirectTo: '/bienvenida'
+        path: '**', redirectTo: '/'
     }
 ];
