@@ -1,160 +1,19 @@
 <div class="contenedor">
   <!-- Header Section -->
   <div class="header-section">
-    <h2 class="main-title">Análisis de Radiografía</h2>
-    <p class="subtitle">Suba una radiografía de tórax para detectar tuberculosis</p>
+    <h2 class="main-title">Análisis de Radiografía de Tórax</h2>
   </div>
   
-  <!-- Status Section -->
-  <div class="status-section">
-    <div class="backend-status" [class.connected]="backendStatus.includes('Conectado')">
-      <span class="status-icon">🔗</span>
-      <span class="status-text">{{ backendStatus }}</span>
-    </div>
-  </div>
-
-  <!-- Upload Section -->
-  <div class="upload-section">
-    <div class="upload-area"
-         *ngIf="!selectedFile"
-         (click)="fileInput.click()"
-         (dragover)="$event.preventDefault()"
-         (drop)="onDrop($event)"
-         tabindex="0"
-         role="button"
-         aria-label="Subir imagen">
-      <div class="upload-icon">📷</div>
-      <h3>Seleccione o arrastre una imagen</h3>
-      <p>Formatos aceptados: JPEG, PNG</p>
-      <div class="file-upload">
-        <input #fileInput type="file" id="fileInput" (change)="onFileSelected($event)" accept="image/jpeg, image/png" style="display:none;" />
-      </div>
-    </div>
-
-    <!-- Preview Section -->
-    <div class="preview-section" *ngIf="selectedFile && isImage(selectedFile.type)">
-      <div class="preview-box">
-        <h4 class="preview-title">Vista Previa</h4>
-        <div class="image-container">
-          <img [src]="imagePreviewUrl" alt="Vista previa de la imagen" />
-        </div>
-        <p class="file-name">{{ selectedFile.name }}</p>
-      </div>
-    </div>
-
-    <!-- Error Message -->
-    <div class="error-message" *ngIf="errorMessage">
-      <span class="error-icon">⚠️</span>
-      <span>{{ errorMessage }}</span>
-    </div>
-
-    <!-- Analysis Button -->
-    <button class="btn-analizar" [disabled]="!selectedFile || isLoading" (click)="analizar()">
-      <span *ngIf="!isLoading" class="btn-text">
-        <span class="btn-icon">🔍</span>
-        Analizar imagen
-      </span>
-      <span *ngIf="isLoading" class="btn-loading">
-        <span class="spinner"></span>
-        Procesando...
-      </span>
-    </button>
-  </div>
-
-  <!-- Results Section -->
-  <div *ngIf="result" class="results-section">
-    <h3 class="results-title">Resultados del Análisis</h3>
-    
-    <!-- Non-radiograph result -->
-    <div *ngIf="!result.es_radiografia" class="result-card diagnosis-info">
-      <div class="card-header">
-        <span class="card-icon">📋</span>
-        <h4>Resultado</h4>
-      </div>
-      <div class="card-content">
-        <p>{{ result.detalle }}</p>
-        <div class="confidence-badge">
-          <span class="confidence-label">Confianza:</span>
-          <span class="confidence-value">{{ result.confianza }}%</span>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Radiograph results -->
-    <div *ngIf="result.es_radiografia" class="radiograph-results">
-      <!-- Clinical Diagnosis -->
-      <div class="result-card" [class]="getDiagnosisColor(result.diagnostico)">
-        <div class="card-header">
-          <span class="card-icon">🏥</span>
-          <h4>Diagnóstico Clínico</h4>
-        </div>
-        <div class="card-content">
-          <p class="diagnosis-text">{{ formatDiagnosis(result.diagnostico) }}</p>
-          <div class="metrics-row">
-            <div *ngIf="result.probabilidad_tb" class="metric-item">
-              <span class="metric-label">Probabilidad de TB:</span>
-              <span class="metric-value">{{ result.probabilidad_tb }}%</span>
-            </div>
-            <div class="metric-item">
-              <span class="metric-label">Confianza:</span>
-              <span class="metric-value">{{ result.confianza }}%</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Technical Quality -->
-      <div class="result-card quality-card">
-        <div class="card-header">
-          <span class="card-icon">⚙️</span>
-          <h4>Calidad Técnica</h4>
-        </div>
-        <div class="card-content">
-          <div class="quality-grid">
-            <div class="quality-item">
-              <span class="quality-label">Diagnóstico Técnico:</span>
-              <span class="quality-value">{{ result.hallazgos_tecnicos.diagnostico_tecnico }}</span>
-            </div>
-            <div class="quality-item">
-              <span class="quality-label">Intensidad Media:</span>
-              <span class="quality-value">{{ result.hallazgos_tecnicos.intensidad_media | number:'1.1-1' }}</span>
-            </div>
-            <div class="quality-item">
-              <span class="quality-label">Contraste:</span>
-              <span class="quality-value">{{ result.hallazgos_tecnicos.contraste | number:'1.1-1' }}</span>
-            </div>
-            <div class="quality-item">
-              <span class="quality-label">Rango Dinámico:</span>
-              <div class="range-values">
-                <span>Oscuros: {{ result.hallazgos_tecnicos.rango_dinamico.oscuros | number:'1.1-1' }}</span>
-                <span>Claros: {{ result.hallazgos_tecnicos.rango_dinamico.claros | number:'1.1-1' }}</span>
-              </div>
-            </div>
-          </div>
-          
-          <div class="quality-details">
-            <div class="detail-item">
-              <span class="detail-label">Posible Causa:</span>
-              <span class="detail-value">{{ result.hallazgos_tecnicos.posible_causa }}</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-label">Consecuencia:</span>
-              <span class="detail-value">{{ result.hallazgos_tecnicos.consecuencia }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Clinical Recommendation -->
-      <div *ngIf="result.recomendacion_clinica" class="result-card recommendation-card">
-        <div class="card-header">
-          <span class="card-icon">💡</span>
-          <h4>Recomendación Clínica</h4>
-        </div>
-        <div class="card-content">
-          <p>{{ result.recomendacion_clinica }}</p>
-        </div>
-      </div>
+  <!-- Iframe Section -->
+  <div class="iframe-section">
+    <div class="iframe-container">
+      <iframe 
+        src="https://feb108df7f2d073e7c.gradio.live" 
+        frameborder="0" 
+        allowfullscreen
+        title="Análisis de Radiografía"
+        class="gradio-iframe">
+      </iframe>
     </div>
   </div>
 </div>
