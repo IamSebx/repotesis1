@@ -17,7 +17,7 @@
 
 /* --- CONTENEDOR PRINCIPAL --- */
 .contenedor {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 80px 20px 40px 20px;
   font-family: 'Roboto', sans-serif;
@@ -43,6 +43,28 @@
   color: #666;
   margin: 0;
   font-weight: 400;
+}
+
+/* --- IFRAME SECTION --- */
+.iframe-section {
+  margin-bottom: 40px;
+}
+
+.iframe-container {
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+  overflow: hidden;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.gradio-iframe {
+  width: 100%;
+  height: 800px;
+  border: none;
+  border-radius: 12px;
+  background: #f8f9fa;
 }
 
 /* --- STATUS SECTION --- */
@@ -461,14 +483,22 @@
   margin: 0;
 }
 
-/* --- RESPONSIVE --- */
+/* --- RESPONSIVE DESIGN --- */
 @media (max-width: 768px) {
   .contenedor {
-    padding: 110px 15px 20px 15px;
+    padding: 60px 15px 30px 15px;
   }
   
   .main-title {
-    font-size: 2rem;
+    font-size: 2.2rem;
+  }
+  
+  .iframe-container {
+    padding: 15px;
+  }
+  
+  .gradio-iframe {
+    height: 600px;
   }
   
   .upload-area {
@@ -497,6 +527,18 @@
 @media (max-width: 480px) {
   .main-title {
     font-size: 1.8rem;
+  }
+  
+  .subtitle {
+    font-size: 1rem;
+  }
+  
+  .iframe-container {
+    padding: 10px;
+  }
+  
+  .gradio-iframe {
+    height: 500px;
   }
   
   .results-title {
