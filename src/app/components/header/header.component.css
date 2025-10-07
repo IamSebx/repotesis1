@@ -26,12 +26,13 @@ body, .app-root, .main-content, .hero-section {
 }
 
 .header-container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 0 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 40px;
 }
 
 .logo a {
@@ -45,6 +46,50 @@ body, .app-root, .main-content, .hero-section {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  white-space: nowrap;
+}
+
+/* Nuevo menú de navegación */
+.nav-menu {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  flex: 1;
+  justify-content: center;
+}
+
+.nav-link {
+  color: #555;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  padding: 8px 16px;
+  border-radius: 8px;
+  position: relative;
+  white-space: nowrap;
+}
+
+.nav-link:hover {
+  color: #1976d2;
+  background: rgba(25, 118, 210, 0.08);
+}
+
+.nav-link.active {
+  color: #1976d2;
+  font-weight: 600;
+  background: linear-gradient(135deg, rgba(25, 118, 210, 0.12) 0%, rgba(67, 160, 71, 0.12) 100%);
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 16px;
+  right: 16px;
+  height: 3px;
+  background: linear-gradient(90deg, #1976d2 60%, #43a047 100%);
+  border-radius: 2px;
 }
 
 .navigation ul {
@@ -101,4 +146,81 @@ body, .app-root, .main-content, .hero-section {
   transform: scale(1.05);
   background: linear-gradient(90deg, #43a047 60%, #1976d2 100%);
   box-shadow: 0 8px 32px rgba(25, 118, 210, 0.18);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .nav-menu {
+    gap: 15px;
+  }
+  
+  .nav-link {
+    font-size: 0.9rem;
+    padding: 6px 12px;
+  }
+  
+  .cta-header .btn-primary {
+    padding: 10px 20px;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-container {
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  
+  .logo a {
+    font-size: 1.5rem;
+  }
+  
+  .nav-menu {
+    order: 3;
+    width: 100%;
+    justify-content: space-around;
+    gap: 8px;
+    padding-top: 10px;
+    border-top: 1px solid #e0e0e0;
+  }
+  
+  .nav-link {
+    font-size: 0.85rem;
+    padding: 6px 8px;
+  }
+  
+  .cta-header {
+    order: 2;
+  }
+  
+  .cta-header .btn-primary {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 15px 0;
+  }
+  
+  .logo a {
+    font-size: 1.3rem;
+  }
+  
+  .nav-menu {
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  
+  .nav-link {
+    font-size: 0.75rem;
+    padding: 5px 8px;
+  }
+  
+  .nav-link.active::after {
+    height: 2px;
+    left: 8px;
+    right: 8px;
+  }
 }

@@ -1,19 +1,165 @@
-<div class="contenedor">
-  <!-- Header Section -->
-  <div class="header-section">
-    <h2 class="main-title">Análisis de Radiografía de Tórax</h2>
-  </div>
-  
-  <!-- Iframe Section -->
-  <div class="iframe-section">
-    <div class="iframe-container">
-      <iframe 
-        src="https://0c7ba89f0197ac582e.gradio.live" 
-        frameborder="0" 
-        allowfullscreen
-        title="Análisis de Radiografía"
-        class="gradio-iframe">
-      </iframe>
+<div class="diagnostico-container">
+  <!-- Intro Section -->
+  <section class="intro-section">
+    <div class="container">
+      <h1 class="page-title" data-aos="fade-up">Diagnóstico de Tuberculosis Pulmonar</h1>
+      <p class="intro-text" data-aos="fade-up" data-aos-delay="100">
+        Practica el análisis de radiografías de tórax con apoyo de inteligencia artificial
+      </p>
     </div>
-  </div>
+  </section>
+
+  <!-- Contenido educativo -->
+  <section class="content-section">
+    <div class="container">
+      
+      <!-- Métodos diagnósticos -->
+      <div class="diagnostic-methods" data-aos="fade-up">
+        <h2 class="section-title">Métodos Diagnósticos de TB Pulmonar</h2>
+        <div class="methods-grid">
+          <div class="method-card">
+            <div class="method-icon">🔬</div>
+            <h3>Baciloscopia</h3>
+            <p><strong>Gold Standard inicial:</strong> Tinción de Ziehl-Neelsen o auramina</p>
+            <ul>
+              <li>Se requieren 2-3 muestras de esputo</li>
+              <li>Sensibilidad: 50-70%</li>
+              <li>Rápido y económico</li>
+            </ul>
+          </div>
+          
+          <div class="method-card">
+            <div class="method-icon">🧬</div>
+            <h3>GeneXpert (PCR)</h3>
+            <p><strong>Molecular:</strong> Detecta DNA de M. tuberculosis</p>
+            <ul>
+              <li>Resultado en 2 horas</li>
+              <li>Alta sensibilidad y especificidad</li>
+              <li>Detecta resistencia a rifampicina</li>
+            </ul>
+          </div>
+          
+          <div class="method-card">
+            <div class="method-icon">🧫</div>
+            <h3>Cultivo</h3>
+            <p><strong>Gold Standard definitivo:</strong> Confirma diagnóstico</p>
+            <ul>
+              <li>Medio sólido: 4-8 semanas</li>
+              <li>Medio líquido: 1-3 semanas</li>
+              <li>Permite antibiograma</li>
+            </ul>
+          </div>
+          
+          <div class="method-card highlighted">
+            <div class="method-icon">🎞️</div>
+            <h3>Radiografía de Tórax</h3>
+            <p><strong>Imagenología:</strong> Fundamental para diagnóstico</p>
+            <ul>
+              <li>Primera línea en evaluación</li>
+              <li>Valora extensión de la enfermedad</li>
+              <li>Monitoreo de respuesta al tratamiento</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interpretación de Rx -->
+      <div class="interpretation-guide" data-aos="fade-up">
+        <h2 class="section-title">Guía para Interpretar Radiografías de Tórax en TB</h2>
+        
+        <div class="guide-content">
+          <div class="guide-section">
+            <h3>📋 Enfoque Sistemático</h3>
+            <ol class="systematic-list">
+              <li><strong>Calidad técnica:</strong> Verificar penetración, rotación, inspiración</li>
+              <li><strong>Comparación:</strong> Si hay Rx previas, compararlas</li>
+              <li><strong>Localización:</strong> Identificar lóbulos y segmentos afectados</li>
+              <li><strong>Patrón:</strong> Describir tipo de lesiones presentes</li>
+              <li><strong>Distribución:</strong> Unilateral/bilateral, apical/basal</li>
+              <li><strong>Complicaciones:</strong> Cavitaciones, derrame, neumotórax</li>
+            </ol>
+          </div>
+
+          <div class="findings-grid">
+            <div class="finding-card">
+              <h4>🔴 Hallazgos Sugestivos de TB</h4>
+              <ul>
+                <li>Opacidades en segmentos apicales/posteriores</li>
+                <li>Cavitaciones (especialmente múltiples)</li>
+                <li>Nódulos con broncograma aéreo</li>
+                <li>Patrón de árbol en brote (miliar)</li>
+                <li>Adenopatías hiliares/mediastínicas</li>
+              </ul>
+            </div>
+            
+            <div class="finding-card">
+              <h4>⚠️ Diagnósticos Diferenciales</h4>
+              <ul>
+                <li>Neumonía bacteriana</li>
+                <li>Cáncer de pulmón</li>
+                <li>Infecciones fúngicas</li>
+                <li>Sarcoidosis</li>
+                <li>Absceso pulmonar</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="alert-box">
+            <strong>⚕️ Nota Clínica:</strong> La radiografía de tórax NO es diagnóstica por sí sola. 
+            Siempre debe correlacionarse con la clínica y confirmarse con pruebas microbiológicas.
+          </div>
+        </div>
+      </div>
+
+      <!-- Herramienta de IA -->
+      <div class="ai-tool-section" data-aos="fade-up">
+        <h2 class="section-title">🤖 Herramienta de Análisis con Deep Learning</h2>
+        <div class="tool-description">
+          <p>
+            Utiliza nuestra herramienta de inteligencia artificial para practicar el análisis de radiografías de tórax. 
+            El modelo ha sido entrenado con miles de imágenes y puede ayudarte a identificar patrones sugestivos de tuberculosis.
+          </p>
+          <div class="usage-tips">
+            <h3>💡 Cómo Usar la Herramienta:</h3>
+            <ol>
+              <li>Sube una radiografía de tórax en formato PNG, JPG o JPEG</li>
+              <li>La IA analizará la imagen y proporcionará un resultado</li>
+              <li>Interpreta el resultado considerando el contexto clínico</li>
+              <li>Compara tu interpretación con la sugerencia de la IA</li>
+              <li>Recuerda: es una herramienta de apoyo, no reemplaza el criterio clínico</li>
+            </ol>
+          </div>
+        </div>
+
+        <!-- Iframe Gradio -->
+        <div class="gradio-container">
+          <div class="iframe-wrapper">
+            <iframe 
+              src="https://ba22e62fd4d09c7b1b.gradio.live" 
+              frameborder="0" 
+              allowfullscreen
+              title="Análisis de Radiografía con IA"
+              class="gradio-iframe">
+            </iframe>
+          </div>
+        </div>
+
+        <div class="disclaimer">
+          <p>
+            <strong>⚠️ Disclaimer Importante:</strong> Esta herramienta es con fines educativos únicamente. 
+            No debe utilizarse para diagnóstico clínico real. Siempre consulta con profesionales médicos calificados 
+            y utiliza métodos diagnósticos validados para el manejo de pacientes.
+          </p>
+        </div>
+      </div>
+
+      <!-- Siguiente paso -->
+      <div class="next-step-card" data-aos="fade-up">
+        <h2>¿Ya practicaste el diagnóstico?</h2>
+        <p>Aprende sobre el tratamiento de la tuberculosis y el manejo integral del paciente</p>
+        <a routerLink="/tratamiento" class="btn btn-primary">Ir a Tratamiento</a>
+      </div>
+
+    </div>
+  </section>
 </div>

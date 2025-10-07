@@ -6,6 +6,7 @@ import AOS from 'aos';
 
 @Component({
   selector: 'app-bienvenida',
+  standalone: true,
   imports: [CommonModule, FormsModule, RouterModule],	
   templateUrl: './bienvenida.component.html',
   styleUrls: ['./bienvenida.component.css']

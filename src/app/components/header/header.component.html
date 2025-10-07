@@ -1,10 +1,29 @@
 <header class="header" [ngClass]="{'scrolled': isScrolled}">
   <div class="header-container">
     <div class="logo">
-      <a routerLink="/">SmartXScan</a>
+      <a routerLink="/">LearnTB</a>
     </div>
+    
+    <nav class="nav-menu">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link">
+        Inicio
+      </a>
+      <a routerLink="/conceptos-basicos" routerLinkActive="active" class="nav-link">
+        Conceptos Básicos
+      </a>
+      <a routerLink="/prevencion" routerLinkActive="active" class="nav-link">
+        Prevención
+      </a>
+      <a routerLink="/diagnostico" routerLinkActive="active" class="nav-link">
+        Diagnóstico
+      </a>
+      <a routerLink="/tratamiento" routerLinkActive="active" class="nav-link">
+        Tratamiento
+      </a>
+    </nav>
+
     <div class="cta-header">
-      <a routerLink="/diagnostico" class="btn btn-primary">Realizar diagnóstico</a>
+      <a routerLink="/diagnostico" class="btn btn-primary">Practicar con IA</a>
     </div>
   </div>
 </header>
