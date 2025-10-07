@@ -1,0 +1,459 @@
+.prevencion-container {
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #f5f7fa 0%, #e3f2fd 100%);
+}
+
+.intro-section {
+  background: linear-gradient(135deg, #1976d2 0%, #43a047 100%);
+  color: white;
+  padding: 80px 20px 60px;
+  text-align: center;
+}
+
+.page-title {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+.intro-text {
+  font-size: 1.3rem;
+  max-width: 800px;
+  margin: 0 auto;
+  opacity: 0.95;
+}
+
+.content-section {
+  padding: 60px 20px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Prevention Cards */
+.prevention-card {
+  background: white;
+  border-radius: 16px;
+  padding: 40px;
+  margin-bottom: 40px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.prevention-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+}
+
+.card-icon {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  display: inline-block;
+}
+
+.card-title {
+  font-size: 2rem;
+  color: #1976d2;
+  margin-bottom: 25px;
+  font-weight: 700;
+}
+
+.card-content {
+  color: #555;
+  line-height: 1.8;
+  font-size: 1.05rem;
+}
+
+.card-content h3, .card-content h4 {
+  color: #333;
+  margin: 25px 0 15px 0;
+  font-weight: 600;
+}
+
+.card-content h4 {
+  font-size: 1.3rem;
+  color: #1976d2;
+}
+
+.card-content p {
+  margin-bottom: 15px;
+}
+
+/* Practices Grid */
+.practices-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 30px;
+  margin: 30px 0;
+}
+
+.practice-item {
+  background: linear-gradient(135deg, #f5f7fa 0%, #e3f2fd 100%);
+  border-radius: 12px;
+  padding: 30px;
+  border: 2px solid #e0e0e0;
+  transition: all 0.3s;
+}
+
+.practice-item.highlight {
+  border-color: #43a047;
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+}
+
+.practice-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+  border-color: #1976d2;
+}
+
+.practice-icon {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.practice-details p {
+  margin-bottom: 12px;
+}
+
+.practice-details ul {
+  list-style: none;
+  padding: 0;
+  margin: 15px 0;
+}
+
+.practice-details li {
+  padding: 8px 0 8px 25px;
+  position: relative;
+  font-size: 0.95rem;
+}
+
+.practice-details li:before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #43a047;
+  font-weight: 800;
+}
+
+/* Frequency Indicators */
+.frequency-indicator {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  padding: 12px 15px;
+  border-radius: 8px;
+  margin-top: 20px;
+  border-left: 4px solid #43a047;
+}
+
+.frequency-label {
+  font-weight: 600;
+  color: #555;
+}
+
+.frequency-value {
+  font-weight: 800;
+  color: #43a047;
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  padding: 4px 12px;
+  border-radius: 15px;
+  font-size: 0.9rem;
+}
+
+/* Habits Grid */
+.habits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 25px;
+  margin: 30px 0;
+}
+
+.habit-card {
+  background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+  border-radius: 12px;
+  padding: 25px;
+  border: 2px solid #ff9800;
+  transition: all 0.3s;
+}
+
+.habit-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(255, 152, 0, 0.2);
+}
+
+.habit-icon {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.habit-content ul {
+  list-style: none;
+  padding: 0;
+}
+
+.habit-content li {
+  padding: 6px 0 6px 20px;
+  position: relative;
+  font-size: 0.95rem;
+}
+
+.habit-content li:before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #e65100;
+  font-weight: 800;
+  font-size: 1.2rem;
+}
+
+.tip-box {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  margin: 15px 0;
+  border-left: 4px solid #ff9800;
+  font-size: 0.95rem;
+}
+
+/* Healthcare Measures */
+.healthcare-measures {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 30px;
+  margin: 30px 0;
+}
+
+.measure-item {
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  border-radius: 12px;
+  padding: 25px;
+  border: 2px solid #1976d2;
+}
+
+.measure-icon {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.measure-details ul {
+  list-style: none;
+  padding: 0;
+}
+
+.measure-details li {
+  padding: 6px 0 6px 20px;
+  position: relative;
+}
+
+.measure-details li:before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: #1976d2;
+  font-weight: 800;
+}
+
+.warning-symptoms {
+  background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+  padding: 20px;
+  border-radius: 8px;
+  margin: 15px 0;
+  border-left: 4px solid #d32f2f;
+}
+
+.warning-symptoms h5 {
+  color: #d32f2f;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+/* Education Content */
+.education-content {
+  display: grid;
+  gap: 30px;
+  margin: 20px 0;
+}
+
+.education-item {
+  background: linear-gradient(135f, #f5f7fa 0%, #e3f2fd 100%);
+  padding: 25px;
+  border-radius: 12px;
+  border-left: 5px solid #1976d2;
+}
+
+.education-item h4 {
+  color: #1976d2;
+  margin-bottom: 15px;
+}
+
+.education-item ul {
+  list-style: none;
+  padding: 0;
+}
+
+.education-item li {
+  padding: 8px 0 8px 25px;
+  position: relative;
+}
+
+.education-item li:before {
+  content: "📖";
+  position: absolute;
+  left: 0;
+  font-size: 1rem;
+}
+
+/* Summary Card */
+.summary-card {
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  border-radius: 16px;
+  padding: 40px;
+  margin: 40px 0;
+  border: 3px solid #43a047;
+}
+
+.summary-card h2 {
+  color: #2e7d32;
+  font-size: 2rem;
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+}
+
+.summary-item {
+  padding: 20px;
+  border-radius: 12px;
+  border: 2px solid;
+}
+
+.summary-item.always {
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  border-color: #43a047;
+}
+
+.summary-item.usually {
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  border-color: #1976d2;
+}
+
+.summary-item.sometimes {
+  background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+  border-color: #ff9800;
+}
+
+.summary-item h4 {
+  text-align: center;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.summary-item.always h4 { color: #2e7d32; }
+.summary-item.usually h4 { color: #1976d2; }
+.summary-item.sometimes h4 { color: #e65100; }
+
+.summary-item ul {
+  list-style: none;
+  padding: 0;
+}
+
+.summary-item li {
+  padding: 6px 0 6px 20px;
+  position: relative;
+  font-size: 0.95rem;
+}
+
+.summary-item li:before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  font-weight: 800;
+}
+
+.summary-item.always li:before { color: #43a047; }
+.summary-item.usually li:before { color: #1976d2; }
+.summary-item.sometimes li:before { color: #ff9800; }
+
+/* Next Step Card */
+.next-step-card {
+  background: linear-gradient(135deg, #1976d2 0%, #43a047 100%);
+  color: white;
+  border-radius: 16px;
+  padding: 50px;
+  text-align: center;
+  margin-top: 60px;
+}
+
+.next-step-card h2 {
+  font-size: 2.2rem;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.next-step-card p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  opacity: 0.95;
+}
+
+.btn {
+  display: inline-block;
+  padding: 15px 40px;
+  text-decoration: none;
+  border-radius: 30px;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.btn-primary {
+  background: white;
+  color: #1976d2;
+}
+
+.btn-primary:hover {
+  transform: scale(1.08);
+  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 2rem;
+  }
+
+  .intro-text {
+    font-size: 1.1rem;
+  }
+
+  .prevention-card {
+    padding: 25px;
+  }
+
+  .card-title {
+    font-size: 1.5rem;
+  }
+
+  .practices-grid, .habits-grid, .healthcare-measures, .summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .next-step-card {
+    padding: 30px 20px;
+  }
+
+  .next-step-card h2 {
+    font-size: 1.6rem;
+  }
+}

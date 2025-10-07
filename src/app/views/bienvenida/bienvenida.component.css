@@ -19,6 +19,93 @@ section {
   margin-bottom: 60px;
 }
 
+/* Botones Hero */
+.hero-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+.hero-description {
+  font-size: 1.1rem;
+  max-width: 800px;
+  margin: 20px auto;
+  color: #1565c0;
+  font-weight: 500;
+}
+.btn-secondary {
+  background: linear-gradient(90deg, #43a047 60%, #66bb6a 100%);
+}
+.btn-secondary:hover {
+  background: linear-gradient(90deg, #66bb6a 60%, #43a047 100%);
+}
+
+/* About Section */
+.about-section {
+  background: #ffffff;
+}
+.about-content {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+.about-text {
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+/* Features Section */
+.features-section {
+  background: linear-gradient(120deg, #fff 70%, #e3f2fd 100%);
+}
+
+/* Learning Path Section */
+.learning-path-section {
+  background: linear-gradient(120deg, #f5f7fa 70%, #e3f2fd 100%);
+}
+.step-link {
+  display: inline-block;
+  margin-top: 15px;
+  color: #1976d2;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.2s, color 0.2s;
+}
+.step-link:hover {
+  transform: translateX(5px);
+  color: #43a047;
+}
+
+/* CTA Section */
+.cta-section {
+  background: linear-gradient(135deg, #1976d2 0%, #43a047 100%);
+  color: white;
+  text-align: center;
+  padding: 100px 20px;
+}
+.cta-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+.cta-text {
+  font-size: 1.25rem;
+  margin-bottom: 40px;
+  opacity: 0.95;
+}
+.cta-section .btn-primary {
+  background: white;
+  color: #1976d2;
+}
+.cta-section .btn-primary:hover {
+  transform: scale(1.08);
+  box-shadow: 0 10px 40px rgba(255, 255, 255, 0.3);
+}
+
 /* --- ANIMACIONES PERSONALIZADAS --- */
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(40px); }
